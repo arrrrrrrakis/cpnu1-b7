@@ -1,6 +1,18 @@
 ### Aviso: Este código é uma adaptação gerada com o auxílio de inteligência artificial, e seu criador não possui conhecimento de programação.
 ### Código original: https://github.com/drxu-drxu-creative-sinner/alocacaocpnu/tree/main
 
+### Como usar:
+
+Copie e cole os dois blocos de código a seguir em células separadas no seu notebook do Google Colab e execute-as em ordem.
+
+#### Célula 1: Instalar Dependências
+
+!pip install pandas openpyxl
+
+#### Célula 2: Script Principal (Upload, Processamento e Download)
+
+Inserir o código do arquivo alocacao.py na segunda célula.
+
 ### **Relatório de Metodologia de Alocação de Candidatos**
 
 **Assunto:** Análise funcional e algorítmica do script alocacao.py para alocação de candidatos a vagas.
