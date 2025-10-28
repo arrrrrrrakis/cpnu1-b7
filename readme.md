@@ -1,4 +1,5 @@
 ### Aviso: Este código é uma adaptação gerada com o auxílio de inteligência artificial, e seu criador não possui conhecimento de programação.
+### Código original: https://github.com/drxu-drxu-creative-sinner/alocacaocpnu/tree/main
 
 ### **Relatório de Metodologia de Alocação de Candidatos**
 
