@@ -66,7 +66,7 @@ O núcleo do processo é um algoritmo de emparelhamento estável. Este problema 
 
 O objetivo do script é encontrar uma "alocação estável" que prioriza a escolha do candidato.  
 3.2. Processo Iterativo de Estabilização  
-O script entra em um loop (com um limite de 8 iterações, interrompido se não houver mudanças) que alterna entre duas funções: resolve\_global e backfill\_all.
+O script entra em um loop ( sendo interrompido se não houver mudanças) que alterna entre duas funções: resolve\_global e backfill\_all.
 
 1. **Resolução de Conflitos (resolve\_global):**  
    * O sistema identifica todos os candidatos que receberam múltiplas "ofertas" (ou seja, foram classificados em mais de uma vaga na Fase 1).  
