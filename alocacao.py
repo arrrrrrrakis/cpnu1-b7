@@ -5,7 +5,7 @@ from pathlib import Path
 import google.colab.files
 import io
 
-# --- 1. Upload do Arquivo ---
+# --- 1. Upload do Arquivo (Adaptação Colab) ---
 print("Por favor, faça o upload do arquivo 'b7p.xlsx'")
 uploaded = google.colab.files.upload()
 
@@ -19,16 +19,12 @@ if FILE_NAME not in uploaded:
 else:
     print(f"\nArquivo '{FILE_NAME}' carregado com sucesso. Iniciando processamento...")
 
-    # --- Início do Script Original (com caminhos adaptados para o Colab) ---
+    # --- Início do Script Original (com caminhos e loop modificados) ---
     
-    # v4_fix2 REVERT: remove editorial order from ranking; use it only for audit of tie-breaks
-    # Ranking per cargo by (-Nota Final, Posição Real, CandID). Ordem_Pref only for cross-cargo choice.
-    # Backfill allows temporary duplicates; iterative global conflict resolution by Ordem_Pref (tie by rank_tuple).
-
     # O arquivo de entrada agora é o arquivo que você carregou
     ARQUIVO = FILE_NAME
 
-    # O diretório de saída agora é o /content/ do Colab
+    # MODIFICAÇÃO COLAB: O diretório de saída agora é o /content/ do Colab
     OUT_DIR = Path('/content/')
     DETALHES_CSV = OUT_DIR/'detalhes_alocacao_v4fix2_revert_FULL.csv'
     XLSX_PATH = OUT_DIR/'resultado_alocacao_v4fix2_revert_FULL.xlsx'
@@ -263,15 +259,30 @@ else:
                     lst.pop(i); mudou = True; break
         return mudou
 
-    # Stabilization loop
+    # *** MODIFICAÇÃO PRINCIPAL ***
+    # Loop de estabilização alterado de 'for _ in range(8)' para 'while True'
+    # para garantir a convergência completa.
+    
     print("Iniciando loop de estabilização (backfill e resolução de conflitos)...")
-    for i in range(8):
+    iteration_count = 0
+    while True:
+        iteration_count += 1
+        print(f"  Iniciando Iteração {iteration_count}...")
+        
         backfill_all(cargo_sel)
         changed = resolve_global(cargo_sel)
-        print(f"  Iteração {i+1} concluída. Mudanças: {changed}")
+        
+        print(f"  Iteração {iteration_count} concluída. Mudanças detectadas: {changed}")
+        
         if not changed:
-            print("Estabilização alcançada.")
+            print(f"Estabilização alcançada após {iteration_count} iterações.")
             break
+        
+        if iteration_count > 100: # Freio de segurança
+            print(f"AVISO: Limite de 100 iterações atingido. Interrompendo loop.")
+            break
+    # *** FIM DA MODIFICAÇÃO ***
+
 
     # ---------- Build final outputs ----------
     final_rows = []
@@ -372,7 +383,7 @@ else:
 
     # --- Fim do Script Original ---
 
-    # --- 2. Saída Final e Download ---
+    # --- 2. Saída Final e Download (Adaptação Colab) ---
     
     print("\n--- Processamento concluído ---")
 
@@ -399,4 +410,3 @@ else:
     google.colab.files.download(str(AUDIT_TIE_CSV))
     
     print("Downloads concluídos.")
-
